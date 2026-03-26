@@ -1,0 +1,1204 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+  <title>Amparar — Sistema Comercial</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<!-- ===== SIDEBAR BACKDROP (MOBILE) ===== -->
+<div class="sidebar-backdrop" id="mobile-backdrop"></div>
+
+<!-- ===== HEADER ===== -->
+<header class="header">
+  <button class="header-toggle" id="sidebar-toggle" title="Menu">☰</button>
+  <div class="logo">
+    <div class="logo-icon">A</div>
+    <div>
+      <div class="logo-text">Amparar</div>
+      <div class="logo-sub">Sistema Comercial</div>
+    </div>
+  </div>
+  <div class="header-spacer"></div>
+  <div class="header-search">
+    <span>🔍</span>
+    <input type="text" placeholder="Buscar lead, associado...">
+  </div>
+  <div class="header-actions">
+    <button class="notif-btn" title="Notificações" onclick="showToast('📅 Novo agendamento: Maria Costa — 14h','info')">
+      🔔
+      <span class="notif-badge" id="notif-badge"></span>
+    </button>
+    <div class="header-user">
+      <div>
+        <div class="header-name">Carlos Mendes</div>
+        <div class="header-role">Especialista • Matriz</div>
+      </div>
+      <div class="header-avatar">CM</div>
+    </div>
+  </div>
+</header>
+
+<!-- ===== LAYOUT ===== -->
+<div class="layout">
+
+  <!-- ===== SIDEBAR ===== -->
+  <nav class="sidebar" id="sidebar">
+    <div class="sidebar-section">
+      <span class="sidebar-label">Principal</span>
+      <div class="nav-item" id="nav-dashboard" data-label="Dashboard" onclick="navigate('dashboard')">
+        <span class="nav-icon">📊</span><span class="nav-label">Dashboard</span>
+      </div>
+      <div class="nav-item" id="nav-funil" data-label="Processo de Vendas" onclick="navigate('funil')">
+        <span class="nav-icon">🔄</span><span class="nav-label">Processo de Vendas</span>
+        <span class="nav-badge" id="badge-funil">11</span>
+      </div>
+      <div class="nav-item" id="nav-agenda" data-label="Agenda" onclick="navigate('agenda')">
+        <span class="nav-icon">📅</span><span class="nav-label">Agenda</span>
+        <span class="nav-badge orange">4</span>
+      </div>
+    </div>
+    <div class="sidebar-section">
+      <span class="sidebar-label">Registros</span>
+      <div class="nav-item" id="nav-historico" data-label="Hist. Ligações" onclick="navigate('historico')">
+        <span class="nav-icon">📞</span><span class="nav-label">Hist. Ligações</span>
+      </div>
+      <div class="nav-item" id="nav-relatorios" data-label="Relatórios" onclick="navigate('relatorios')">
+        <span class="nav-icon">📈</span><span class="nav-label">Relatórios</span>
+      </div>
+      <div class="nav-item" id="nav-curriculos" data-label="Currículos" onclick="navigate('curriculos')">
+        <span class="nav-icon">📄</span><span class="nav-label">Currículos</span>
+        <span class="nav-badge" style="background:var(--amarelo);">3</span>
+      </div>
+    </div>
+    <div class="sidebar-section">
+      <span class="sidebar-label">Sistema</span>
+      <div class="nav-item" id="nav-configuracoes" data-label="Configurações" onclick="navigate('configuracoes')">
+        <span class="nav-icon">⚙️</span><span class="nav-label">Configurações</span>
+      </div>
+    </div>
+    <div class="sidebar-footer">
+      <div class="nav-item" onclick="showToast('Funcionalidade de logout disponível na versão final','')">
+        <span class="nav-icon">🚪</span><span class="nav-label">Sair</span>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ===== MAIN ===== -->
+  <main class="main">
+
+    <!-- ================================================
+         DASHBOARD
+         ================================================ -->
+    <div class="page active" id="page-dashboard">
+      <div class="top-bar">
+        <div>
+          <div class="page-title">Dashboard</div>
+          <div class="page-sub">Resumo do dia — Quarta-feira, 26 de Março de 2026</div>
+        </div>
+        <div class="top-bar-actions">
+          <button class="btn btn-primary btn-sm" onclick="novoLead()">＋ Novo Lead</button>
+        </div>
+      </div>
+
+      <!-- Número Mágico -->
+      <div class="numero-magico">
+        <div class="nm-header">
+          <div class="nm-title">🔢 Número Mágico — Meta de Conversão</div>
+          <div class="nm-periodo">Ciclo atual</div>
+        </div>
+        <div class="nm-cards">
+          <div class="nm-card">
+            <div class="nm-num">20</div>
+            <div class="nm-label">Leads</div>
+            <div class="nm-conv">base</div>
+            <div class="nm-realizado" style="opacity:0.5;font-size:10px;">atual: 11</div>
+          </div>
+          <div class="nm-card">
+            <div class="nm-num">12</div>
+            <div class="nm-label">Contatos</div>
+            <div class="nm-conv">60%</div>
+            <div class="nm-realizado" style="opacity:0.5;font-size:10px;">atual: 8</div>
+          </div>
+          <div class="nm-card">
+            <div class="nm-num">4</div>
+            <div class="nm-label">Agendamentos</div>
+            <div class="nm-conv">33%</div>
+            <div class="nm-realizado" style="opacity:0.5;font-size:10px;">atual: 2</div>
+          </div>
+          <div class="nm-card">
+            <div class="nm-num">2</div>
+            <div class="nm-label">Visitas</div>
+            <div class="nm-conv">50%</div>
+            <div class="nm-realizado" style="opacity:0.5;font-size:10px;">atual: 2</div>
+          </div>
+          <div class="nm-card highlight">
+            <div class="nm-num achieved">1</div>
+            <div class="nm-label">Venda</div>
+            <div class="nm-conv">50%</div>
+            <div class="nm-realizado" style="color:#7DFFB2;font-size:10px;">✓ Meta atingida!</div>
+          </div>
+          <div class="nm-card">
+            <div class="nm-num">3</div>
+            <div class="nm-label">Recomendações</div>
+            <div class="nm-conv">3/venda</div>
+            <div class="nm-realizado" style="opacity:0.5;font-size:10px;">atual: 2</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- KPIs -->
+      <div class="kpi-row">
+        <div class="kpi-card">
+          <div class="kpi-icon" style="background:var(--verde-suave);">📞</div>
+          <div class="kpi-info">
+            <div class="kpi-val text-verde" id="kpi-ligacoes">38</div>
+            <div class="kpi-lbl">Ligações hoje</div>
+          </div>
+          <span class="kpi-trend up">+12%</span>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-icon" style="background:var(--laranja-suave);">💰</div>
+          <div class="kpi-info">
+            <div class="kpi-val text-laranja">R$187</div>
+            <div class="kpi-lbl">Ticket Médio</div>
+          </div>
+          <span class="kpi-trend up">+5%</span>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-icon" style="background:var(--azul-suave);">👥</div>
+          <div class="kpi-info">
+            <div class="kpi-val text-azul" id="kpi-associados">312</div>
+            <div class="kpi-lbl">Associados na Carteira</div>
+          </div>
+          <span class="kpi-trend up">+3</span>
+        </div>
+      </div>
+
+      <!-- Dash Row -->
+      <div class="dash-row">
+        <!-- Funil Preview -->
+        <div class="card">
+          <div class="card-header">
+            <div class="card-title">🔄 Leads no Funil</div>
+            <button class="btn btn-secondary btn-sm" onclick="navigate('funil')">Ver funil →</button>
+          </div>
+          <div class="card-body">
+            <div id="funil-preview"></div>
+          </div>
+        </div>
+
+        <!-- Atividade Recente -->
+        <div class="card">
+          <div class="card-header">
+            <div class="card-title">⚡ Atividade Recente</div>
+            <button class="btn btn-secondary btn-sm" onclick="navigate('historico')">Ver tudo →</button>
+          </div>
+          <div class="card-body">
+            <div id="atividades-recentes"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Agenda Semanal -->
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title">📅 Agenda da Semana — Março 2026</div>
+          <button class="btn btn-secondary btn-sm" onclick="navigate('agenda')">Agenda completa →</button>
+        </div>
+        <div class="card-body" style="padding:12px 16px;overflow-x:auto;">
+          <div id="agenda-week-container"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ================================================
+         FUNIL / KANBAN
+         ================================================ -->
+    <div class="page" id="page-funil">
+      <div class="top-bar">
+        <div>
+          <div class="page-title">Processo de Vendas</div>
+          <div class="page-sub">Visualize e gerencie os leads em cada etapa do funil</div>
+        </div>
+        <div class="top-bar-actions">
+          <div class="filtros">
+            <button class="filtro-btn active">Todos</button>
+            <button class="filtro-btn">Matriz</button>
+            <button class="filtro-btn">Centro</button>
+            <button class="filtro-btn">São José</button>
+          </div>
+          <button class="btn btn-primary btn-sm" onclick="novoLead()">＋ Novo Lead</button>
+        </div>
+      </div>
+      <div class="kanban-wrap" id="kanban-board"></div>
+    </div>
+
+    <!-- ================================================
+         AGENDA
+         ================================================ -->
+    <div class="page" id="page-agenda">
+      <div class="top-bar">
+        <div>
+          <div class="page-title">Agenda</div>
+          <div class="page-sub">Agendamentos compartilhados com o gestor</div>
+        </div>
+        <div class="top-bar-actions">
+          <div class="filtros">
+            <button class="filtro-btn active">Semana</button>
+            <button class="filtro-btn">Mês</button>
+            <button class="filtro-btn">Todos</button>
+          </div>
+        </div>
+      </div>
+      <div class="table-wrap">
+        <table class="agenda-full">
+          <thead>
+            <tr>
+              <th>Data/Hora</th>
+              <th>Cliente</th>
+              <th>Tipo Veículo</th>
+              <th>Local</th>
+              <th>Especialista</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody id="agenda-tbody"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- ================================================
+         HISTÓRICO DE LIGAÇÕES
+         ================================================ -->
+    <div class="page" id="page-historico">
+      <div class="top-bar">
+        <div>
+          <div class="page-title">Histórico de Ligações</div>
+          <div class="page-sub">Registro completo de todas as interações</div>
+        </div>
+        <div class="top-bar-actions">
+          <div class="filtros" data-target="historico">
+            <button class="filtro-btn active" data-filter="todas">Todas</button>
+            <button class="filtro-btn" data-filter="ligacao">Ligação</button>
+            <button class="filtro-btn" data-filter="agendamento">Agendamento</button>
+            <button class="filtro-btn" data-filter="visita">Visita</button>
+            <button class="filtro-btn" data-filter="carteira">Carteira</button>
+          </div>
+        </div>
+      </div>
+      <div class="hist-list" id="historico-list"></div>
+    </div>
+
+    <!-- ================================================
+         RELATÓRIOS
+         ================================================ -->
+    <div class="page" id="page-relatorios">
+      <div class="top-bar">
+        <div>
+          <div class="page-title">Relatórios</div>
+          <div class="page-sub">Análises e indicadores comerciais</div>
+        </div>
+      </div>
+      <div class="rel-grid">
+        <div class="rel-card">
+          <div class="rel-card-header">🎂 Aniversariantes do Mês</div>
+          <div class="rel-card-body">
+            <div class="aniv-item">
+              <div class="aniv-avatar" style="background:#2B6CB0;">MA</div>
+              <div>
+                <div style="font-weight:700;">Marcos Alves</div>
+                <div class="aniv-data">28/03 • Associado há 2 anos</div>
+              </div>
+              <button class="btn btn-sm btn-secondary" style="margin-left:auto;" onclick="copyTel('(48) 99387-1122')">📞 Ligar</button>
+            </div>
+            <div class="aniv-item">
+              <div class="aniv-avatar" style="background:#C07828;">PG</div>
+              <div>
+                <div style="font-weight:700;">Priscila Gomes</div>
+                <div class="aniv-data">30/03 • Associado há 1 ano</div>
+              </div>
+              <button class="btn btn-sm btn-secondary" style="margin-left:auto;">📞 Ligar</button>
+            </div>
+            <div class="aniv-item">
+              <div class="aniv-avatar" style="background:var(--verde);">JS</div>
+              <div>
+                <div style="font-weight:700;">João Silva</div>
+                <div class="aniv-data">02/04 • Associado há 3 meses</div>
+              </div>
+              <button class="btn btn-sm btn-secondary" style="margin-left:auto;">📞 Ligar</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="rel-card">
+          <div class="rel-card-header">📊 Conversão por Etapa</div>
+          <div class="rel-card-body">
+            <div id="rel-funil"></div>
+          </div>
+        </div>
+
+        <div class="rel-card">
+          <div class="rel-card-header">📈 Desempenho dos Especialistas</div>
+          <div class="rel-card-body">
+            <table class="data-table">
+              <thead><tr><th>Especialista</th><th>Ligações</th><th>Agend.</th><th>Vendas</th></tr></thead>
+              <tbody>
+                <tr><td><strong>Carlos Mendes</strong></td><td>38</td><td>4</td><td>2</td></tr>
+                <tr><td><strong>Ana Beatriz</strong></td><td>31</td><td>3</td><td>1</td></tr>
+                <tr><td><strong>Rodrigo Lopes</strong></td><td>27</td><td>2</td><td>1</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="rel-card">
+          <div class="rel-card-header">🏢 Produção por Filial</div>
+          <div class="rel-card-body">
+            <div class="funil-item">
+              <div class="funil-label">Matriz</div>
+              <div class="funil-bar-wrap"><div class="funil-bar" style="width:100%;background:var(--verde);"></div></div>
+              <div class="funil-num">18</div><div class="funil-pct">45%</div>
+            </div>
+            <div class="funil-item">
+              <div class="funil-label">Centro</div>
+              <div class="funil-bar-wrap"><div class="funil-bar" style="width:60%;background:var(--azul);"></div></div>
+              <div class="funil-num">12</div><div class="funil-pct">30%</div>
+            </div>
+            <div class="funil-item">
+              <div class="funil-label">São José</div>
+              <div class="funil-bar-wrap"><div class="funil-bar" style="width:40%;background:var(--laranja);"></div></div>
+              <div class="funil-num">10</div><div class="funil-pct">25%</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="rel-card">
+          <div class="rel-card-header">📌 Fonte dos Leads (Mês)</div>
+          <div class="rel-card-body">
+            <div class="funil-item"><div class="funil-label">Recomendação Assoc.</div><div class="funil-bar-wrap"><div class="funil-bar" style="width:80%;background:var(--verde);"></div></div><div class="funil-num">16</div></div>
+            <div class="funil-item"><div class="funil-label">Redes Sociais</div><div class="funil-bar-wrap"><div class="funil-bar" style="width:50%;background:var(--azul);"></div></div><div class="funil-num">10</div></div>
+            <div class="funil-item"><div class="funil-label">Carteira Amparar</div><div class="funil-bar-wrap"><div class="funil-bar" style="width:35%;background:var(--roxo);"></div></div><div class="funil-num">7</div></div>
+            <div class="funil-item"><div class="funil-label">Site</div><div class="funil-bar-wrap"><div class="funil-bar" style="width:25%;background:var(--laranja);"></div></div><div class="funil-num">5</div></div>
+            <div class="funil-item"><div class="funil-label">Outros</div><div class="funil-bar-wrap"><div class="funil-bar" style="width:15%;background:var(--cinza-400);"></div></div><div class="funil-num">3</div></div>
+          </div>
+        </div>
+
+        <div class="rel-card">
+          <div class="rel-card-header">📅 Comparativo Período</div>
+          <div class="rel-card-body">
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
+              <div style="text-align:center;padding:12px;background:var(--verde-suave);border-radius:8px;">
+                <div style="font-size:22px;font-weight:800;color:var(--verde);font-family:'DM Mono';">92</div>
+                <div style="font-size:11px;color:var(--cinza-500);">Março 2026</div>
+              </div>
+              <div style="text-align:center;padding:12px;background:var(--cinza-100);border-radius:8px;">
+                <div style="font-size:22px;font-weight:800;color:var(--cinza-700);font-family:'DM Mono';">78</div>
+                <div style="font-size:11px;color:var(--cinza-500);">Fevereiro 2026</div>
+              </div>
+            </div>
+            <div style="margin-top:10px;padding:10px;background:var(--verde-suave);border-radius:8px;text-align:center;">
+              <span style="color:var(--verde);font-weight:700;font-size:13px;">↑ +18% em ligações vs mês anterior</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ================================================
+         CURRÍCULOS
+         ================================================ -->
+    <div class="page" id="page-curriculos">
+      <div class="top-bar">
+        <div>
+          <div class="page-title">Currículos</div>
+          <div class="page-sub">Gestão do processo seletivo de novos especialistas</div>
+        </div>
+        <div class="top-bar-actions">
+          <div class="filtros" data-target="curriculos">
+            <button class="filtro-btn active" data-filter="todos">Todos</button>
+            <button class="filtro-btn" data-filter="em_analise">Em Análise</button>
+            <button class="filtro-btn" data-filter="entrevista">Entrevista</button>
+            <button class="filtro-btn" data-filter="aprovado">Aprovados</button>
+            <button class="filtro-btn" data-filter="reprovado">Reprovados</button>
+          </div>
+          <button class="btn btn-primary btn-sm" onclick="openModal('modal-curriculo')">＋ Cadastrar Currículo</button>
+        </div>
+      </div>
+      <div class="curriculo-grid" id="curriculos-grid"></div>
+    </div>
+
+    <!-- ================================================
+         CONFIGURAÇÕES
+         ================================================ -->
+    <div class="page" id="page-configuracoes">
+      <div class="top-bar">
+        <div>
+          <div class="page-title">Configurações</div>
+          <div class="page-sub">Usuários, Tags, Filiais e Histórico do sistema</div>
+        </div>
+      </div>
+
+      <!-- Usuários -->
+      <div class="config-section">
+        <div class="config-section-title">👤 Usuários Cadastrados</div>
+        <div class="table-wrap">
+          <table class="data-table">
+            <thead>
+              <tr><th>Nome</th><th>Sigla</th><th>Filial</th><th>Perfil</th><th>Status</th><th>Ações</th></tr>
+            </thead>
+            <tbody id="usuarios-tbody"></tbody>
+          </table>
+        </div>
+        <button class="btn btn-primary btn-sm mt-12" onclick="openModal('modal-usuario')">＋ Novo Usuário</button>
+      </div>
+
+      <!-- Filiais -->
+      <div class="config-section">
+        <div class="config-section-title">🏢 Filiais</div>
+        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;">
+          <div class="kpi-card">
+            <div class="kpi-icon" style="background:var(--verde-suave);font-size:22px;">🏢</div>
+            <div class="kpi-info">
+              <div style="font-size:16px;font-weight:800;color:var(--verde);">Matriz</div>
+              <div class="kpi-lbl">Rua Principal, 100</div>
+            </div>
+          </div>
+          <div class="kpi-card">
+            <div class="kpi-icon" style="background:var(--azul-suave);font-size:22px;">🏪</div>
+            <div class="kpi-info">
+              <div style="font-size:16px;font-weight:800;color:var(--azul);">Centro</div>
+              <div class="kpi-lbl">Av. Central, 250</div>
+            </div>
+          </div>
+          <div class="kpi-card">
+            <div class="kpi-icon" style="background:var(--laranja-suave);font-size:22px;">🏬</div>
+            <div class="kpi-info">
+              <div style="font-size:16px;font-weight:800;color:var(--laranja);">São José</div>
+              <div class="kpi-lbl">Rua São José, 78</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tags -->
+      <div class="config-section">
+        <div class="config-section-title">🏷️ Tags do Sistema</div>
+        <div class="tags-wrap">
+          <span class="tag tag-quente tag-manage" style="font-size:12px;padding:6px 14px;">🔥 Contato Quente</span>
+          <span class="tag tag-atencao tag-manage" style="font-size:12px;padding:6px 14px;">⚠️ Atenção</span>
+          <span class="tag tag-novo tag-manage" style="font-size:12px;padding:6px 14px;">🆕 Novo</span>
+          <span class="tag tag-vip tag-manage" style="font-size:12px;padding:6px 14px;">⭐ VIP</span>
+          <span class="tag tag-delay tag-manage" style="font-size:12px;padding:6px 14px;">⏳ Delay</span>
+          <button class="btn btn-sm btn-secondary" onclick="showToast('Funcionalidade em breve','')">＋ Nova Tag</button>
+        </div>
+      </div>
+
+      <!-- Histórico de Alterações -->
+      <div class="config-section">
+        <div class="config-section-title">🕐 Histórico de Alterações</div>
+        <div class="table-wrap">
+          <table class="data-table">
+            <thead><tr><th>Usuário</th><th>Campo</th><th>Valor Anterior</th><th>Novo Valor</th><th>Data/Hora</th></tr></thead>
+            <tbody>
+              <tr><td>Carlos Mendes</td><td>Etapa Lead (AMP-2026-0015)</td><td>Visita</td><td>Venda</td><td><span class="text-mono" style="font-size:11px;">25/03/26 14:45</span></td></tr>
+              <tr><td>Ana Beatriz</td><td>Etapa Lead (AMP-2026-0036)</td><td>Ligação</td><td>Agendamento</td><td><span class="text-mono" style="font-size:11px;">25/03/26 11:22</span></td></tr>
+              <tr><td>Carlos Mendes</td><td>Tag (AMP-2026-0040)</td><td>—</td><td>Contato Quente</td><td><span class="text-mono" style="font-size:11px;">25/03/26 10:55</span></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+  </main><!-- /main -->
+</div><!-- /layout -->
+
+<!-- ============================================================
+     MODAL: NOVO LEAD
+     ============================================================ -->
+<div class="modal-overlay" id="modal-novo-lead">
+  <div class="modal">
+    <div class="modal-header">
+      <div class="modal-header-left">
+        <div class="modal-title">🌱 Cadastro de Lead</div>
+        <div class="modal-subtitle">Preencha os dados do novo lead</div>
+      </div>
+      <div class="modal-header-right">
+        <span class="modal-stage-badge" style="background:var(--azul-suave);color:var(--azul);">Etapa: Lead</span>
+        <button class="modal-close" onclick="closeModal('modal-novo-lead')">✕</button>
+      </div>
+    </div>
+    <div class="modal-body">
+      <form id="form-novo-lead" onsubmit="return false;">
+        <div class="form-section">
+          <div class="form-section-title">📋 Identificação</div>
+          <div class="form-grid">
+            <div class="form-group">
+              <label>ID Lead</label>
+              <input type="text" id="new-lead-id" class="readonly-id" readonly>
+            </div>
+            <div class="form-group">
+              <label>Data de Chegada</label>
+              <input type="date" id="new-lead-data">
+            </div>
+            <div class="form-group full">
+              <label>Nome completo <span class="required">*</span></label>
+              <input type="text" id="new-lead-nome" placeholder="Nome do lead">
+            </div>
+            <div class="form-group">
+              <label>Telefone <span class="required">*</span></label>
+              <input type="tel" id="new-lead-tel" placeholder="(48) 99999-9999">
+            </div>
+            <div class="form-group">
+              <label>Captador</label>
+              <input type="text" id="new-lead-captador" placeholder="Nome do captador" value="Carlos Mendes">
+            </div>
+          </div>
+        </div>
+        <div class="form-section">
+          <div class="form-section-title">📍 Origem</div>
+          <div class="form-grid">
+            <div class="form-group">
+              <label>Fonte do Lead <span class="required">*</span>
+                <span class="tooltip" style="margin-left:4px;">
+                  <span style="cursor:help;background:var(--cinza-300);border-radius:50%;width:16px;height:16px;display:inline-flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;">?</span>
+                  <span class="tooltip-text fonte-tooltip-text">Selecione a origem para ver a descrição</span>
+                </span>
+              </label>
+              <select id="new-lead-fonte" onchange="updateFonteTooltip(this)">
+                <option value="">Selecione...</option>
+                <option>Carteira Amparar</option>
+                <option>Inativo</option>
+                <option>Associado novo Veículo</option>
+                <option>Cliente Potencial</option>
+                <option>Consultor que saiu</option>
+                <option>Recomendação associado</option>
+                <option>Recomendação não associado</option>
+                <option>Troca de Titularidade</option>
+                <option>Projeto 150 X</option>
+                <option>Projeto 150 Y</option>
+                <option>Internos</option>
+                <option>Site</option>
+                <option>Terceiros</option>
+                <option>Redes Sociais</option>
+                <option>Externos</option>
+                <option>Reciclagem</option>
+                <option>Minha Carteira</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Quem indicou</label>
+              <input type="text" id="new-lead-quem" placeholder="Nome de quem indicou">
+            </div>
+          </div>
+        </div>
+        <div class="form-section">
+          <div class="form-section-title">🚗 Veículo (opcional)</div>
+          <div class="form-grid">
+            <div class="form-group">
+              <label>Placa</label>
+              <input type="text" id="new-lead-placa" placeholder="ABC-1234" style="text-transform:uppercase;">
+            </div>
+            <div class="form-group">
+              <label>Valor FIPE</label>
+              <input type="text" id="new-lead-fipe" placeholder="R$ 0,00">
+            </div>
+          </div>
+        </div>
+        <div class="form-section">
+          <div class="form-section-title">💬 Observações</div>
+          <div class="form-group">
+            <textarea id="new-lead-obs" placeholder="Observações sobre o lead..."></textarea>
+          </div>
+        </div>
+      </form>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-secondary" onclick="closeModal('modal-novo-lead')">Cancelar</button>
+      <button class="btn btn-primary" onclick="salvarNovoLead()">Cadastrar Lead →</button>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================
+     MODAL: DETALHE DO LEAD (ABAS PROGRESSIVAS)
+     ============================================================ -->
+<div class="modal-overlay" id="modal-lead-detail">
+  <div class="modal modal-lg">
+    <div class="modal-header">
+      <div class="modal-header-left">
+        <div class="modal-title" id="mld-nome">Nome do Lead</div>
+        <div class="modal-subtitle" id="mld-id" style="font-family:'DM Mono';font-size:11px;">AMP-2026-0000</div>
+      </div>
+      <div class="modal-header-right">
+        <span class="modal-stage-badge" id="mld-stage-badge">Etapa</span>
+        <button class="modal-close" onclick="closeModal('modal-lead-detail')">✕</button>
+      </div>
+    </div>
+
+    <!-- ABAS PROGRESSIVAS (RN-11) -->
+    <div class="modal-tabs">
+      <div class="modal-tab" data-tab="lead" onclick="switchModalTab('lead','tab-content-lead',this)">🌱 Lead</div>
+      <div class="modal-tab disabled" data-tab="ligacao" onclick="switchModalTab('ligacao','tab-content-ligacao',this)">📞 Ligação</div>
+      <div class="modal-tab disabled" data-tab="agendamento" onclick="switchModalTab('agendamento','tab-content-agendamento',this)">📅 Agendamento</div>
+      <div class="modal-tab disabled" data-tab="visita" onclick="switchModalTab('visita','tab-content-visita',this)">🏠 Visita</div>
+      <div class="modal-tab disabled" data-tab="venda" onclick="switchModalTab('venda','tab-content-venda',this)">💰 Venda</div>
+      <div class="modal-tab disabled" data-tab="carteira" onclick="switchModalTab('carteira','tab-content-carteira',this)">👛 Carteira</div>
+    </div>
+
+    <div class="modal-body">
+
+      <!-- ===== ABA: LEAD ===== -->
+      <div class="modal-tab-content active" id="tab-content-lead">
+        <div class="lead-destaque verde">
+          <div>
+            <div class="lead-nome text-verde" id="mld-nome2">—</div>
+            <div class="lead-id">Lead cadastrado</div>
+          </div>
+          <div style="flex:1;">
+            <div class="lead-tel" style="color:var(--verde);">
+              📱 <span id="mld-tel">—</span>
+              <button class="copy-btn" id="mld-copy-btn">Copiar</button>
+            </div>
+          </div>
+        </div>
+        <div class="form-section">
+          <div class="form-section-title">Dados do Lead</div>
+          <div class="form-grid">
+            <div class="form-group">
+              <label>Fonte do Lead</label>
+              <select id="mld-fonte"><option>—</option>
+                <option>Carteira Amparar</option><option>Inativo</option><option>Recomendação associado</option><option>Site</option><option>Redes Sociais</option><option>Outros</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Captador</label>
+              <input type="text" id="mld-captador">
+            </div>
+          </div>
+        </div>
+        <div class="form-section">
+          <div class="form-section-title">💬 Observações (persistente em todas as etapas)</div>
+          <textarea id="mld-obs" placeholder="Observações acumuladas..."></textarea>
+        </div>
+      </div>
+
+      <!-- ===== ABA: LIGAÇÃO ===== -->
+      <div class="modal-tab-content" id="tab-content-ligacao">
+        <div class="lead-destaque verde">
+          <div>
+            <div class="lead-nome text-verde" id="mld-lig-nome">—</div>
+            <div class="lead-id" id="mld-lig-id">—</div>
+          </div>
+          <div style="flex:1;">
+            <div class="lead-tel" style="color:var(--verde);">
+              📱 <span id="mld-lig-tel">—</span>
+              <button class="copy-btn" onclick="copyTel(document.getElementById('mld-lig-tel').textContent)">Copiar</button>
+            </div>
+          </div>
+          <span class="tentativas-badge" id="mld-tentativas">0 tentativas</span>
+        </div>
+
+        <div class="form-section">
+          <div class="form-section-title">📞 Registro da Ligação</div>
+          <div class="form-grid">
+            <div class="form-group">
+              <label>Data e Horário</label>
+              <div class="input-group">
+                <input type="datetime-local" id="lig-datetime">
+                <button class="btn btn-secondary btn-sm" onclick="setNow('lig-datetime')">Agora</button>
+              </div>
+            </div>
+            <div class="form-group">
+              <label>Resultado <span class="required">*</span></label>
+              <div style="font-size:11px;color:var(--cinza-500);">Selecione abaixo</div>
+            </div>
+          </div>
+          <div class="resultado-options">
+            <div class="res-opt danger" onclick="selectRes(this)">Não atendeu</div>
+            <div class="res-opt danger" onclick="selectRes(this)">Número errado</div>
+            <div class="res-opt warning" onclick="selectRes(this)">Pediu pra retornar</div>
+            <div class="res-opt" onclick="selectRes(this)">Não agendou</div>
+            <div class="res-opt" onclick="selectRes(this)">✅ Agendamento</div>
+            <div class="res-opt disabled-opt" data-tipo="remarketing" onclick="selectRes(this)" style="opacity:0.5;cursor:not-allowed;" title="Disponível após 30 tentativas">♻️ Remarketing</div>
+          </div>
+          <div class="remarketing-warning" style="display:none;">
+            ⚠️ Remarketing disponível somente após 30 tentativas.
+          </div>
+        </div>
+        <div class="form-section">
+          <div class="form-section-title">💬 Observações</div>
+          <textarea id="mld-lig-obs" placeholder="Continue as observações do lead..."></textarea>
+        </div>
+      </div>
+
+      <!-- ===== ABA: AGENDAMENTO ===== -->
+      <div class="modal-tab-content" id="tab-content-agendamento">
+        <div class="lead-destaque roxo">
+          <div>
+            <div class="lead-nome" style="color:var(--roxo);" id="mld-agen-nome">—</div>
+            <div class="lead-id" id="mld-agen-tel">—</div>
+          </div>
+        </div>
+        <div class="form-section">
+          <div class="form-section-title">📅 Dados do Agendamento</div>
+          <div class="form-grid">
+            <div class="form-group">
+              <label>Categoria do Veículo <span class="required">*</span></label>
+              <select id="agen-categoria">
+                <option>Nacional Particular</option>
+                <option>Importado/Diesel</option>
+                <option>Nacional Trabalho</option>
+                <option>Motocicleta</option>
+                <option>Caminhão</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Local do Agendamento <span class="required">*</span></label>
+              <select id="agen-local">
+                <option>🏢 Interno</option>
+                <option>📍 Externo</option>
+                <option>💻 Online</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Data do Agendamento feito</label>
+              <input type="date" id="agen-data-feito">
+            </div>
+            <div class="form-group">
+              <label>Data e Hora da Visita <span class="required">*</span></label>
+              <input type="datetime-local" id="agen-data-visita">
+            </div>
+          </div>
+        </div>
+        <div class="form-section">
+          <div class="form-section-title">✅ Checklist de Agendamento</div>
+          <div class="checklist">
+            <div class="check-item" onclick="toggleCheck(this)"><div class="check-box"></div>Enviar endereço e mapa para o cliente</div>
+            <div class="check-item" onclick="toggleCheck(this)"><div class="check-box"></div>Preencher o quadro de agendamento</div>
+          </div>
+        </div>
+        <div class="form-section">
+          <div class="form-section-title">💬 Observações</div>
+          <textarea id="mld-agen-obs" placeholder="Observações sobre o agendamento..."></textarea>
+        </div>
+      </div>
+
+      <!-- ===== ABA: VISITA ===== -->
+      <div class="modal-tab-content" id="tab-content-visita">
+        <div class="lead-destaque laranja">
+          <div>
+            <div class="lead-nome" style="color:#9C5A10;" id="mld-vis-nome">—</div>
+            <div class="lead-id" id="mld-vis-tel">—</div>
+          </div>
+        </div>
+        <div class="form-section">
+          <div class="form-section-title">🏠 Resultado da Visita <span class="required">*</span></div>
+          <div class="visita-resultado">
+            <div class="vres-btn delay" data-tipo="delay" onclick="selectVisita(this,'delay')">⏳ Delay</div>
+            <div class="vres-btn" data-tipo="c2" onclick="selectVisita(this,'c2')">📅 C2</div>
+            <div class="vres-btn nao" data-tipo="nao" onclick="selectVisita(this,'nao')">❌ Não Fechou</div>
+            <div class="vres-btn venda" data-tipo="venda" onclick="selectVisita(this,'venda')">💰 Venda!</div>
+          </div>
+        </div>
+
+        <!-- Delay detail -->
+        <div class="resultado-detail" id="detail-delay">
+          <div class="form-section-title" style="margin-top:0;">⏳ Acompanhamento Delay</div>
+          <div class="form-grid">
+            <div class="form-group">
+              <label>Data e Hora da Tentativa</label>
+              <div class="input-group">
+                <input type="datetime-local" id="delay-datetime">
+                <button class="btn btn-secondary btn-sm" onclick="setNow('delay-datetime')">Agora</button>
+              </div>
+            </div>
+            <div class="form-group">
+              <label>Resultado</label>
+              <select><option>Não atendeu</option><option>Não reagendou</option><option>Agendamento</option><option>Pediu para retornar</option></select>
+            </div>
+          </div>
+        </div>
+        <!-- C2 detail -->
+        <div class="resultado-detail" id="detail-c2">
+          <div class="form-section-title" style="margin-top:0;">📅 Segundo Agendamento (C2)</div>
+          <div class="form-grid">
+            <div class="form-group"><label>Data</label><input type="date" id="c2-data"></div>
+            <div class="form-group"><label>Hora</label><input type="time" id="c2-hora"></div>
+            <div class="form-group"><label>Local</label><select><option>Interno</option><option>Externo</option><option>Online</option></select></div>
+          </div>
+        </div>
+        <!-- Não fechou detail -->
+        <div class="resultado-detail" id="detail-nao">
+          <div class="form-section-title" style="margin-top:0;">❌ Acompanhamento — Não Fechou</div>
+          <div class="form-grid">
+            <div class="form-group"><label>Data e Hora</label><input type="datetime-local" id="nao-datetime"></div>
+            <div class="form-group"><label>Resultado</label><select><option>Não atendeu</option><option>Não reagendou</option><option>Agendamento</option><option>Pediu retorno</option></select></div>
+          </div>
+        </div>
+        <!-- Venda detail -->
+        <div class="resultado-detail" id="detail-venda">
+          <div style="text-align:center;padding:14px 0;">
+            <div style="font-size:40px;margin-bottom:10px;">🎉</div>
+            <div style="font-size:16px;font-weight:800;color:var(--verde);">Parabéns! Venda realizada!</div>
+            <div style="font-size:13px;color:var(--cinza-500);margin-top:6px;">Clique em confirmar para avançar para Venda</div>
+          </div>
+        </div>
+
+        <div class="form-section mt-12">
+          <div class="form-section-title">💬 Observações</div>
+          <textarea id="mld-vis-obs" placeholder="Observações sobre a visita..."></textarea>
+        </div>
+      </div>
+
+      <!-- ===== ABA: VENDA ===== -->
+      <div class="modal-tab-content" id="tab-content-venda">
+        <div class="lead-destaque verde">
+          <div>
+            <div class="lead-nome text-verde" id="mld-venda-nome">—</div>
+            <div class="lead-id" id="mld-venda-info">—</div>
+          </div>
+          <div style="margin-left:auto;font-size:12px;color:var(--cinza-500);">
+            Fonte: <strong id="mld-venda-fonte">—</strong>
+          </div>
+        </div>
+        <div class="form-section">
+          <div class="form-section-title">💰 Dados da Venda</div>
+          <div class="form-grid">
+            <div class="form-group"><label>Valor de Adesão</label><input type="text" id="venda-adesao" placeholder="R$ 0,00"></div>
+            <div class="form-group"><label>Valor Mensalidade</label><input type="text" id="venda-mensalidade" placeholder="R$ 0,00"></div>
+            <div class="form-group"><label>Valor Rastreador</label><input type="text" id="venda-rastreador" placeholder="R$ 0,00"></div>
+            <div class="form-group"><label>Data da Venda</label><input type="date" id="venda-data"></div>
+            <div class="form-group"><label>Data de Aniversário</label><input type="date" id="venda-aniversario"></div>
+          </div>
+        </div>
+        <div class="form-section">
+          <div class="form-section-title">📋 Recomendações (até 3)</div>
+          <div id="rec-card-1" class="rec-card">
+            <div class="rec-num">Recomendação 1</div>
+            <div class="form-grid">
+              <div class="form-group"><label>Nome</label><input type="text" class="rec-nome" placeholder="Nome"></div>
+              <div class="form-group"><label>Telefone</label><input type="tel" class="rec-tel" placeholder="(48) 99999-9999"></div>
+              <div class="form-group"><label>Grau de Proximidade</label><input type="text" placeholder="Ex: Amigo, Familiar..."></div>
+              <div class="form-group"><label>Profissão</label><input type="text" placeholder="Opcional"></div>
+              <div class="form-group"><label>Veículo</label><input type="text" placeholder="Opcional"></div>
+              <div class="form-group"><label>Obs</label><input type="text" placeholder="Opcional"></div>
+            </div>
+            <button class="btn btn-sm btn-verde-outline mt-8" onclick="criarLeadRecomendacao('rec-card-1')">🌱 Criar como Lead</button>
+          </div>
+          <div id="rec-card-2" class="rec-card" style="display:none;">
+            <div class="rec-num">Recomendação 2</div>
+            <div class="form-grid">
+              <div class="form-group"><label>Nome</label><input type="text" class="rec-nome" placeholder="Nome"></div>
+              <div class="form-group"><label>Telefone</label><input type="tel" class="rec-tel" placeholder="(48) 99999-9999"></div>
+            </div>
+            <button class="btn btn-sm btn-verde-outline mt-8" onclick="criarLeadRecomendacao('rec-card-2')">🌱 Criar como Lead</button>
+          </div>
+          <div id="rec-card-3" class="rec-card" style="display:none;">
+            <div class="rec-num">Recomendação 3</div>
+            <div class="form-grid">
+              <div class="form-group"><label>Nome</label><input type="text" class="rec-nome" placeholder="Nome"></div>
+              <div class="form-group"><label>Telefone</label><input type="tel" class="rec-tel" placeholder="(48) 99999-9999"></div>
+            </div>
+            <button class="btn btn-sm btn-verde-outline mt-8" onclick="criarLeadRecomendacao('rec-card-3')">🌱 Criar como Lead</button>
+          </div>
+          <button class="btn btn-sm btn-secondary mt-8" id="btn-add-rec" onclick="addRecCard()">＋ Adicionar recomendação</button>
+        </div>
+        <div class="form-section">
+          <div class="form-section-title">✅ Checklist Pós-Venda</div>
+          <div class="checklist">
+            <div class="check-item" onclick="toggleCheck(this)"><div class="check-box"></div>Enviado para subir cadastro</div>
+            <div class="check-item" onclick="toggleCheck(this)"><div class="check-box"></div>Enviado o termo de adesão para o associado</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ===== ABA: CARTEIRA ===== -->
+      <div class="modal-tab-content" id="tab-content-carteira">
+        <div class="lead-destaque cinza">
+          <div>
+            <div class="lead-nome" id="mld-cart-nome">—</div>
+            <div class="lead-id" id="mld-cart-tel">—</div>
+          </div>
+          <div style="margin-left:auto;text-align:right;font-size:12px;color:var(--cinza-500);">
+            <div>Última ligação:</div>
+            <div style="font-weight:700;color:var(--cinza-900);">—</div>
+          </div>
+        </div>
+        <div class="form-section">
+          <div class="form-section-title">📞 Pedido de Recomendações</div>
+          <div class="form-grid">
+            <div class="form-group">
+              <label>Motivo da Ligação</label>
+              <select>
+                <option>Upsell</option><option>Atualização de dados</option><option>Promoções</option><option>Outros</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Data e Hora</label>
+              <div class="input-group">
+                <input type="datetime-local" id="cart-datetime">
+                <button class="btn btn-secondary btn-sm" onclick="setNow('cart-datetime')">Agora</button>
+              </div>
+            </div>
+            <div class="form-group full">
+              <label>Resultado</label>
+              <div class="resultado-options">
+                <div class="res-opt danger" onclick="selectRes(this)">Não atendeu</div>
+                <div class="res-opt warning" onclick="selectRes(this)">Pediu retornar</div>
+                <div class="res-opt selected" onclick="selectRes(this)">✅ Passou recomendações</div>
+                <div class="res-opt" onclick="selectRes(this)">Não passou recomendações</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="form-section">
+          <div class="form-section-title">🌱 Cuidar da Base</div>
+          <div class="form-grid">
+            <div class="form-group">
+              <label>Motivo</label>
+              <select>
+                <option>Aniversário</option><option>Férias</option><option>Festas</option><option>Feriado</option>
+                <option>Fenômenos da natureza</option><option>Índice de acidentes</option>
+                <option>Campanhas promocionais</option><option>Relembrar benefícios</option><option>Outros</option>
+              </select>
+            </div>
+          </div>
+          <div id="rec-card-cart" class="rec-card mt-8">
+            <div class="rec-num">Nova Recomendação</div>
+            <div class="form-grid">
+              <div class="form-group"><label>Nome</label><input type="text" class="rec-nome" placeholder="Nome"></div>
+              <div class="form-group"><label>Telefone</label><input type="tel" class="rec-tel" placeholder="(48)"></div>
+              <div class="form-group"><label>Grau de Proximidade</label><input type="text" placeholder="Ex: Colega de trabalho"></div>
+              <div class="form-group"><label>Carro (opcional)</label><input type="text" placeholder="Modelo do carro"></div>
+            </div>
+            <button class="btn btn-sm btn-verde-outline mt-8" onclick="criarLeadRecomendacao('rec-card-cart')">🌱 Criar como Lead</button>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /modal-body -->
+
+    <!-- Footer dinâmico por aba -->
+    <div class="modal-footer">
+      <button class="btn btn-secondary" onclick="closeModal('modal-lead-detail')">Fechar</button>
+      <button class="btn btn-secondary" id="mld-btn-registrar-lig" style="display:none;" onclick="registrarLigacao()">📞 Registrar Ligação</button>
+      <button class="btn btn-primary" id="mld-btn-avancar" onclick="avancarLeadAtual()">Avançar Etapa →</button>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================
+     MODAL: CONCLUIR LIGAÇÃO (Remarketing ou Agendamento)
+     ============================================================ -->
+<div class="modal-overlay" id="modal-concluir-ligacao">
+  <div class="modal modal-sm">
+    <div class="modal-header">
+      <div class="modal-title">📞 Concluir — O que fazer?</div>
+      <button class="modal-close" onclick="closeModal('modal-concluir-ligacao')">✕</button>
+    </div>
+    <div class="modal-body" style="text-align:center;padding:28px 24px;">
+      <div style="font-size:14px;color:var(--cinza-500);margin-bottom:6px;">Lead: <strong id="mcl-nome">—</strong></div>
+      <div style="font-size:13px;color:var(--cinza-500);margin-bottom:24px;">Tentativas: <strong id="mcl-tent">—</strong></div>
+      <div style="display:flex;flex-direction:column;gap:12px;">
+        <button class="btn btn-primary" style="width:100%;justify-content:center;" id="mcl-btn-agendamento">
+          📅 Prosseguir para Agendamento
+        </button>
+        <button class="btn btn-secondary" style="width:100%;justify-content:center;" id="mcl-btn-remarketing">
+          ♻️ Enviar para Remarketing
+        </button>
+        <div id="mcl-remarketing-msg" style="display:none;font-size:11px;color:var(--laranja);padding:8px;background:var(--laranja-suave);border-radius:6px;">
+          ⚠️ Remarketing disponível apenas após 30 tentativas.
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================
+     MODAL: CURRÍCULO
+     ============================================================ -->
+<div class="modal-overlay" id="modal-curriculo">
+  <div class="modal">
+    <div class="modal-header">
+      <div class="modal-title">📄 Cadastro de Currículo</div>
+      <button class="modal-close" onclick="closeModal('modal-curriculo')">✕</button>
+    </div>
+    <div class="modal-body">
+      <form id="form-curriculo" onsubmit="return false;">
+        <div class="form-grid">
+          <div class="form-group full"><label>Nome completo <span class="required">*</span></label><input type="text" id="curr-nome" placeholder="Nome do candidato"></div>
+          <div class="form-group"><label>E-mail</label><input type="email" id="curr-email" placeholder="email@exemplo.com"></div>
+          <div class="form-group"><label>Telefone</label><input type="tel" id="curr-tel" placeholder="(48) 99999-9999"></div>
+          <div class="form-group"><label>Cargo Pretendido</label><input type="text" id="curr-cargo" placeholder="Ex: Consultor Comercial"></div>
+          <div class="form-group"><label>Experiência (anos)</label><input type="number" id="curr-exp" placeholder="0" min="0"></div>
+          <div class="form-group"><label>Status</label>
+            <select id="curr-status">
+              <option value="em_analise">⏳ Em análise</option>
+              <option value="entrevista">📋 Entrevista Agendada</option>
+              <option value="aprovado">✅ Aprovado</option>
+              <option value="reprovado">❌ Reprovado</option>
+              <option value="em_espera">⏸️ Em espera</option>
+            </select>
+          </div>
+          <div class="form-group full"><label>Observações / Resultado do Processo</label><textarea id="curr-obs" placeholder="Resultado da entrevista, observações..."></textarea></div>
+        </div>
+      </form>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-secondary" onclick="closeModal('modal-curriculo')">Cancelar</button>
+      <button class="btn btn-primary" onclick="salvarCurriculo()">Salvar Currículo</button>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================
+     MODAL: USUÁRIO
+     ============================================================ -->
+<div class="modal-overlay" id="modal-usuario">
+  <div class="modal modal-sm">
+    <div class="modal-header">
+      <div class="modal-title">👤 Novo Usuário</div>
+      <button class="modal-close" onclick="closeModal('modal-usuario')">✕</button>
+    </div>
+    <div class="modal-body">
+      <form id="form-usuario" onsubmit="return false;">
+        <div class="form-grid">
+          <div class="form-group full"><label>Nome completo <span class="required">*</span></label><input type="text" id="usr-nome" placeholder="Nome"></div>
+          <div class="form-group"><label>Sigla (2 letras) <span class="required">*</span></label><input type="text" id="usr-sigla" placeholder="CM" maxlength="3" style="text-transform:uppercase;"></div>
+          <div class="form-group"><label>Filial <span class="required">*</span></label>
+            <select id="usr-filial"><option value="">Selecione...</option><option>Matriz</option><option>Centro</option><option>São José</option><option>Todas</option></select>
+          </div>
+          <div class="form-group"><label>Perfil <span class="required">*</span></label>
+            <select id="usr-perfil"><option value="">Selecione...</option><option value="especialista">Especialista</option><option value="supervisor">Supervisor</option><option value="gerente">Gerente</option></select>
+          </div>
+          <div class="form-group full"><label>E-mail</label><input type="email" id="usr-email" placeholder="email@amparar.com.br"></div>
+        </div>
+      </form>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-secondary" onclick="closeModal('modal-usuario')">Cancelar</button>
+      <button class="btn btn-primary" onclick="salvarUsuario()">Cadastrar Usuário</button>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================
+     CONFIRM DIALOG
+     ============================================================ -->
+<div class="confirm-overlay" id="confirm-overlay">
+  <div class="confirm-dialog">
+    <div class="confirm-icon" id="confirm-icon">❓</div>
+    <div class="confirm-title" id="confirm-title">Confirmar</div>
+    <div class="confirm-msg" id="confirm-msg">Tem certeza?</div>
+    <div class="confirm-actions">
+      <button class="btn btn-secondary" onclick="confirmNo()">Cancelar</button>
+      <button class="btn btn-primary" onclick="confirmYes()">Confirmar</button>
+    </div>
+  </div>
+</div>
+
+<!-- ===== TOAST CONTAINER ===== -->
+<div class="toast-container" id="toast-container"></div>
+
+<!-- ===== SCRIPTS ===== -->
+<script src="app.js"></script>
+<script>
+// ---- Extras wired in HTML ----
+
+// Add rec cards (Venda)
+let recCardCount = 1;
+function addRecCard() {
+  if (recCardCount >= 3) {
+    showToast('Máximo de 3 recomendações por venda', 'warning');
+    return;
+  }
+  recCardCount++;
+  document.getElementById('rec-card-' + recCardCount).style.display = 'block';
+  if (recCardCount === 3) document.getElementById('btn-add-rec').style.display = 'none';
+}
+
+// Sync lead data into modal sub-tabs
+function openLeadModal(leadId) {
+  const lead = App.leads.find(l => l.id === leadId);
+  if (!lead) return;
+  App.currentLead = lead;
+  App.currentLeadStage = lead.etapa;
+  populateLeadModal(lead);
+
+  // Sync sub-elements
+  const nome = lead.nome;
+  const idEl = lead.id;
+  const tel = lead.tel;
+  ['mld-nome2'].forEach(id => { const el = document.getElementById(id); if (el) el.textContent = nome; });
+  ['mld-lig-nome','mld-agen-nome','mld-vis-nome','mld-venda-nome','mld-cart-nome'].forEach(id => {
+    const el = document.getElementById(id); if (el) el.textContent = nome;
+  });
+  ['mld-lig-id'].forEach(id => { const el = document.getElementById(id); if (el) el.textContent = idEl; });
+  ['mld-agen-tel','mld-vis-tel','mld-cart-tel'].forEach(id => { const el = document.getElementById(id); if (el) el.textContent = '📱 ' + tel; });
+  ['mld-lig-tel'].forEach(id => { const el = document.getElementById(id); if (el) el.textContent = tel; });
+  const fonteEl = document.getElementById('mld-venda-fonte'); if (fonteEl) fonteEl.textContent = lead.fonte;
+
+  // Copy button
+  const copyBtn = document.getElementById('mld-copy-btn');
+  if (copyBtn) copyBtn.onclick = () => copyTel(tel);
+
+  // Obs sync
+  const obsLig = document.getElementById('mld-lig-obs');
+  if (obsLig) obsLig.value = lead.obs || '';
+
+  // Dynamic footer buttons
+  const btnAvan = document.getElementById('mld-btn-avancar');
+  const btnLig = document.getElementById('mld-btn-registrar-lig');
+  const stageIdx = getStageIndex(lead.etapa);
+
+  if (lead.etapa === 'ligacao') {
+    if (btnLig) btnLig.style.display = 'flex';
+    if (btnAvan) btnAvan.style.display = 'none';
+  } else if (lead.etapa === 'carteira') {
+    if (btnLig) btnLig.style.display = 'none';
+    if (btnAvan) { btnAvan.textContent = 'Registrar ✓'; btnAvan.style.display = 'flex'; }
+  } else {
+    if (btnLig) btnLig.style.display = 'none';
+    if (btnAvan) { btnAvan.textContent = STAGE_LABELS[STAGE_ORDER[stageIdx + 1]] ? 'Avançar: ' + STAGE_LABELS[STAGE_ORDER[stageIdx + 1]] + ' →' : 'Salvar ✓'; btnAvan.style.display = 'flex'; }
+  }
+
+  openModal('modal-lead-detail');
+}
+
+function avancarLeadAtual() {
+  const lead = App.currentLead;
+  if (!lead) return;
+  const stageIdx = getStageIndex(lead.etapa);
+
+  if (lead.etapa === 'agendamento') {
+    confirmarAgendamento(lead);
+  } else if (lead.etapa === 'visita') {
+    confirmarVisita(lead);
+  } else if (lead.etapa === 'venda') {
+    confirmarVenda(lead);
+  } else if (lead.etapa === 'carteira') {
+    // Save carteira interaction
+    showToast('✅ Interação registrada!', 'success');
+    closeModal('modal-lead-detail');
+  } else {
+    // Lead → Ligacao
+    if (STAGE_ORDER[stageIdx + 1]) {
+      avançarEtapa(lead, STAGE_ORDER[stageIdx + 1]);
+      renderKanban();
+      closeModal('modal-lead-detail');
+      showToast(`✅ Lead avançou para ${STAGE_LABELS[lead.etapa]}!`, 'success');
+      setTimeout(() => openLeadModal(lead.id), 150);
+    }
+  }
+}
+
+// Init render atividades
+document.addEventListener('DOMContentLoaded', () => {
+  renderAtividades();
+});
+</script>
+</body>
+</html>

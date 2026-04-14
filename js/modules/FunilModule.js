@@ -194,12 +194,40 @@ class FunilModule {
     $('#mld-mensest').val(l.mensalidadeEst||'');
     $('#mld-obs').val(l.obs||'');
     $('#mld-copy-tel').off('click').on('click', () => { Utils.copyTel(l.tel); Toast.show('Número copiado!','success'); });
+<<<<<<< HEAD
+
+    // AJUSTE 7: renderizar tags atuais e disponíveis
+    const $atuais = $('#mld-tags-atuais');
+    $atuais.html((l.tags || []).map(t => {
+      const c = TAG_CONFIG[t] || { cls: '', label: t };
+      return `<span class="amp-tag ${c.cls}" style="cursor:pointer;"
+        onclick="FunilModule.removerTag('${Utils.escHtml(l.id)}','${t}')" title="Clique para remover">
+        ${c.label} <i class='bi bi-x-circle-fill' style='font-size:10px;opacity:.7;'></i></span>`;
+    }).join(''));
+
+    const $disp = $('#mld-tags-disponiveis');
+    $disp.html(store.tags.filter(t => !(l.tags||[]).includes(t)).map(t => {
+      const c = TAG_CONFIG[t] || { cls: '', label: t };
+      return `<span class="amp-tag ${c.cls}" style="cursor:pointer;opacity:0.55;"
+        onclick="FunilModule.adicionarTag('${Utils.escHtml(l.id)}','${t}')" title="Clique para adicionar">
+        <i class='bi bi-plus-lg' style='font-size:10px;'></i> ${c.label}</span>`;
+    }).join(''));
+=======
+>>>>>>> ad1974a1ad745815ae68a694114388ade54ac19e
   }
 
   static _preencherAbaLigacao(l) {
     $('#mld-lig-nome').text(l.nome);
     $('#mld-lig-tel').text(l.tel);
     $('#mld-lig-id').text(l.id);
+<<<<<<< HEAD
+    // AJUSTE 1: bind do botão copiar na aba ligação
+    $('#mld-copy-lig-tel').off('click').on('click', () => {
+      Utils.copyTel(l.tel);
+      Toast.show('Número copiado!', 'success');
+    });
+=======
+>>>>>>> ad1974a1ad745815ae68a694114388ade54ac19e
     FunilModule._atualizarContadorTentativas(l.tentativas);
     $('#tab-ligacao .res-opt').removeClass('selected');
     $('#mld-lig-obs').val(l.obs||'');
@@ -447,14 +475,101 @@ class FunilModule {
     $c.find('input, textarea').val(''); /* RN-06: limpa formulário */
   }
 
+<<<<<<< HEAD
+  /* ---- TAGS (AJUSTE 7) ---- */
+  static adicionarTag(leadId, tag) {
+    const lead = store.buscarLead(leadId);
+    if (!lead || (lead.tags||[]).includes(tag)) return;
+    lead.tags = [...(lead.tags||[]), tag];
+    store._logAudit('Carlos Mendes', `Tag (${leadId})`, '—', TAG_CONFIG[tag]?.label || tag);
+    FunilModule._preencherAbaLead(lead);
+    FunilModule.renderKanban();
+    Toast.show('Tag adicionada!', 'success');
+  }
+
+  static removerTag(leadId, tag) {
+    const lead = store.buscarLead(leadId);
+    if (!lead) return;
+    lead.tags = (lead.tags||[]).filter(t => t !== tag);
+    store._logAudit('Carlos Mendes', `Tag (${leadId})`, TAG_CONFIG[tag]?.label || tag, '—');
+    FunilModule._preencherAbaLead(lead);
+    FunilModule.renderKanban();
+    Toast.show('Tag removida.', '');
+  }
+
+  /* ---- IMPORTAÇÃO DE LEADS VIA CSV (AJUSTE 4) ---- */
+  static processarImportacao() {
+    const file = document.getElementById('import-file')?.files?.[0];
+    if (!file) { Toast.show('Selecione um arquivo CSV', 'warning'); return; }
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      const linhas = e.target.result.split(/\r?\n/).filter(l => l.trim()).slice(1); // pula header
+      let importados = 0, ignorados = 0;
+      linhas.forEach(linha => {
+        const cols = linha.split(',');
+        const nome  = cols[0]?.trim();
+        const tel   = cols[1]?.trim();
+        const fonte = cols[2]?.trim() || 'Carteira Amparar';
+        if (nome && tel) {
+          store.adicionarLead({
+            id: store.proximoLeadId(), nome, tel, fonte,
+            captador: 'Carlos Mendes', tags: [], etapa: 'lead',
+            tentativas: 0, obs: '', placa: '', fipe: '', mensalidadeEst: ''
+          });
+          importados++;
+        } else { ignorados++; }
+      });
+      FunilModule.renderKanban();
+      FunilModule.renderFunilPreview();
+      FunilModule.renderNumeroMagico();
+      document.getElementById('import-file').value = '';
+      $('#import-preview').html('');
+      Toast.show(`${importados} leads importados${ignorados ? ` (${ignorados} ignorados)` : ''}!`, 'success');
+      Modal.fechar('modal-importar-leads');
+    };
+    reader.onerror = () => Toast.show('Erro ao ler o arquivo', 'danger');
+    reader.readAsText(file, 'UTF-8');
+  }
+
+  /* ---- FILTRO POR FILIAL (AJUSTE 6) ---- */
+  static filtrarPorFilial(filialId) {
+    // AJUSTE 6: filtra kanban pela filial selecionada
+    const $board = $('#kanban-board');
+    if (!filialId) {
+      $board.find('.k-card').show();
+      return;
+    }
+    const filial = store.filiais.find(f => f.id === filialId);
+    if (!filial) return;
+    $board.find('.k-card').each(function() {
+      const captador = $(this).find('.k-captador').text().trim();
+      const matchUser = store.usuarios.find(u => u.nome === captador && (u.filial === filial.nome || u.filial === 'Todas'));
+      $(this).toggle(!!matchUser);
+    });
+  }
+
+=======
+>>>>>>> ad1974a1ad745815ae68a694114388ade54ac19e
   /* ---- RESULTADO LIGAÇÃO ---- */
   static selecionarRes(el) {
     const $opt = $(el);
     if ($opt.hasClass('disabled-opt')) {
       Toast.show('Remarketing disponível após 30 tentativas','warning'); return;
     }
+<<<<<<< HEAD
+    // AJUSTE 2: desseleciona TODOS os res-opt da aba atual (não só do mesmo grupo)
+    const $pane = $opt.closest('.lead-tab-pane');
+    $pane.find('.res-opt').removeClass('selected');
+    $opt.addClass('selected');
+
+    // AJUSTE 8: atualizar texto do botão de ligação conforme resultado
+    const texto = $opt.text().trim();
+    const isAvanco = texto.includes('Agendamento') || texto.includes('Remarketing');
+    $('#mld-btn-lig').text(isAvanco ? '→ Registrar e Avançar' : '✓ Registrar Resultado');
+=======
     $opt.closest('.resultado-options').find('.res-opt').removeClass('selected');
     $opt.addClass('selected');
+>>>>>>> ad1974a1ad745815ae68a694114388ade54ac19e
   }
 
   /* ---- RESULTADO VISITA ---- */
@@ -463,5 +578,16 @@ class FunilModule {
     $(el).addClass('selected');
     $('#tab-visita .resultado-detail').removeClass('active');
     $('#vis-detail-'+tipo).addClass('active');
+<<<<<<< HEAD
+
+    // AJUSTE 8: atualizar texto do botão principal conforme resultado da visita
+    const $btnAvan = $('#mld-btn-avancar');
+    if (tipo === 'venda') {
+      $btnAvan.text('Avançar: 💰 Venda →');
+    } else {
+      $btnAvan.text('✓ Registrar Resultado');
+    }
+=======
+>>>>>>> ad1974a1ad745815ae68a694114388ade54ac19e
   }
 }

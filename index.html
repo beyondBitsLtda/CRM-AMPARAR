@@ -240,11 +240,14 @@
         </div>
         <div class="top-bar-actions">
           <div class="filtros">
-            <button class="filtro-btn active">Todos</button>
-            <button class="filtro-btn">Matriz</button>
-            <button class="filtro-btn">Centro</button>
-            <button class="filtro-btn">São José</button>
+            <select class="form-select form-select-sm" id="funil-filtro-filial" style="width:auto;" onchange="FunilModule.filtrarPorFilial(this.value)">
+              <option value="">Todas as Unidades</option>
+            </select>
           </div>
+<<<<<<< HEAD
+          <button class="btn-amparar btn-secondary-amp" onclick="openModal('modal-importar-leads')" title="Importar leads via planilha CSV"><i class="bi bi-file-earmark-arrow-up"></i> Importar Carteira</button>
+=======
+>>>>>>> ad1974a1ad745815ae68a694114388ade54ac19e
           <button class="btn-amparar btn-primary-amp" onclick="novoLead()"><i class="bi bi-plus-lg"></i> Novo Lead</button>
         </div>
       </div>
@@ -253,6 +256,15 @@
 
     <!-- ======================== AGENDA ======================== -->
     <div class="amp-page" id="page-agenda">
+<<<<<<< HEAD
+      <!-- BARRA SUPERIOR ESTILO GOOGLE CALENDAR -->
+      <div class="gcal-topbar">
+        <div class="gcal-topbar-left">
+          <button class="gcal-btn-hoje" onclick="AgendaModule.irHoje()">Hoje</button>
+          <div class="gcal-nav-arrows">
+            <button class="gcal-arrow" onclick="AgendaModule.navSemana(-1)" title="Semana anterior"><i class="bi bi-chevron-left"></i></button>
+            <button class="gcal-arrow" onclick="AgendaModule.navSemana(1)"  title="Próxima semana"><i class="bi bi-chevron-right"></i></button>
+=======
       <div class="top-bar">
         <div>
           <div class="page-title">Agenda</div>
@@ -263,14 +275,49 @@
             <button class="filtro-btn active">Semana</button>
             <button class="filtro-btn">Mês</button>
             <button class="filtro-btn">Todos</button>
+>>>>>>> ad1974a1ad745815ae68a694114388ade54ac19e
           </div>
+          <span id="gcal-periodo-label" class="gcal-periodo"></span>
+        </div>
+        <div class="gcal-topbar-right">
+          <div class="gcal-view-switch">
+            <button class="gcal-view-btn active" id="gcal-btn-semana" onclick="AgendaModule.setView('semana')">Semana</button>
+            <button class="gcal-view-btn" id="gcal-btn-dia"    onclick="AgendaModule.setView('dia')">Dia</button>
+          </div>
+          <button class="btn-amparar btn-primary-amp btn-sm-amp" onclick="AgendaModule.novoAgendamento()">
+            <i class="bi bi-plus-lg"></i> Novo agendamento
+          </button>
         </div>
       </div>
+<<<<<<< HEAD
+
+      <!-- GRADE GOOGLE CALENDAR -->
+      <div class="gcal-wrapper">
+        <div class="gcal-container" id="gcal-container">
+          <!-- Renderizado pelo JS -->
+        </div>
+      </div>
+
+      <!-- MODAL DETALHE DO SLOT -->
+      <div id="gcal-popover" class="gcal-popover" style="display:none;">
+        <div class="gcal-popover-header">
+          <span id="gcal-pop-titulo" class="gcal-popover-titulo"></span>
+          <button class="gcal-popover-close" onclick="AgendaModule.fecharPopover()"><i class="bi bi-x-lg"></i></button>
+        </div>
+        <div class="gcal-popover-body">
+          <div class="gcal-pop-row"><i class="bi bi-clock"></i><span id="gcal-pop-horario"></span></div>
+          <div class="gcal-pop-row"><i class="bi bi-person-fill"></i><span id="gcal-pop-consultor"></span></div>
+          <div class="gcal-pop-row" id="gcal-pop-cliente-row"><i class="bi bi-person-badge"></i><span id="gcal-pop-cliente"></span></div>
+          <div class="gcal-pop-row" id="gcal-pop-tipo-row"><i class="bi bi-car-front-fill"></i><span id="gcal-pop-tipo"></span></div>
+          <div class="gcal-pop-row" id="gcal-pop-local-row"><i class="bi bi-geo-alt-fill"></i><span id="gcal-pop-local"></span></div>
+        </div>
+=======
       <div class="table-wrap">
         <table class="amp-table">
           <thead><tr><th>Data/Hora</th><th>Cliente</th><th>Tipo Veículo</th><th>Local</th><th>Especialista</th><th>Status</th></tr></thead>
           <tbody id="agenda-tbody"></tbody>
         </table>
+>>>>>>> ad1974a1ad745815ae68a694114388ade54ac19e
       </div>
     </div>
 
@@ -299,6 +346,72 @@
     <div class="amp-page" id="page-relatorios">
       <div class="top-bar">
         <div><div class="page-title">Relatórios</div><div class="page-sub">Análises e indicadores comerciais</div></div>
+<<<<<<< HEAD
+      </div>
+
+      <!-- PAINEL DE EXPORTAÇÃO EXCEL -->
+      <div class="amp-card mb-4" id="secao-relatorios-gerente">
+        <div class="amp-card-header">
+          <div class="amp-card-title"><i class="bi bi-file-earmark-excel me-1" style="color:#1D6F42;"></i> Exportar Relatórios em Excel</div>
+        </div>
+        <div class="p-3 pt-1">
+          <div class="row g-3">
+            <div class="col-md-3 col-6">
+              <div class="rel-export-card" onclick="RelatoriosModule.exportarLeads()">
+                <div class="rel-export-icon" style="background:#DBEAFE;color:#1D4ED8;"><i class="bi bi-kanban-fill"></i></div>
+                <div class="rel-export-label">Leads por Etapa</div>
+                <div class="rel-export-sub">ID, nome, telefone, etapa, fonte, captador</div>
+                <div class="rel-export-btn"><i class="bi bi-download"></i> Baixar .xlsx</div>
+              </div>
+            </div>
+            <div class="col-md-3 col-6">
+              <div class="rel-export-card" onclick="RelatoriosModule.exportarLigacoes()">
+                <div class="rel-export-icon" style="background:#D1FAE5;color:#059669;"><i class="bi bi-telephone-fill"></i></div>
+                <div class="rel-export-label">Histórico de Ligações</div>
+                <div class="rel-export-sub">Lead, resultado, tentativa, especialista</div>
+                <div class="rel-export-btn"><i class="bi bi-download"></i> Baixar .xlsx</div>
+              </div>
+            </div>
+            <div class="col-md-3 col-6">
+              <div class="rel-export-card" onclick="RelatoriosModule.exportarVendas()">
+                <div class="rel-export-icon" style="background:#D1FAE5;color:#1B6B3A;"><i class="bi bi-currency-dollar"></i></div>
+                <div class="rel-export-label">Vendas do Mês</div>
+                <div class="rel-export-sub">Adesão, mensalidade, rastreador, data</div>
+                <div class="rel-export-btn"><i class="bi bi-download"></i> Baixar .xlsx</div>
+              </div>
+            </div>
+            <div class="col-md-3 col-6">
+              <div class="rel-export-card" onclick="RelatoriosModule.exportarCarteira()">
+                <div class="rel-export-icon" style="background:#EDE9FE;color:#7C3AED;"><i class="bi bi-people-fill"></i></div>
+                <div class="rel-export-label">Carteira de Associados</div>
+                <div class="rel-export-sub">Placa, mensalidade, aniversário, captador</div>
+                <div class="rel-export-btn"><i class="bi bi-download"></i> Baixar .xlsx</div>
+              </div>
+            </div>
+            <div class="col-md-3 col-6">
+              <div class="rel-export-card" onclick="RelatoriosModule.exportarFunil()">
+                <div class="rel-export-icon" style="background:#FEF3C7;color:#D97706;"><i class="bi bi-funnel-fill"></i></div>
+                <div class="rel-export-label">Conversão do Funil</div>
+                <div class="rel-export-sub">Totais e taxas de conversão por etapa</div>
+                <div class="rel-export-btn"><i class="bi bi-download"></i> Baixar .xlsx</div>
+              </div>
+            </div>
+            <div class="col-md-3 col-6">
+              <div class="rel-export-card" onclick="RelatoriosModule.exportarDesempenho()">
+                <div class="rel-export-icon" style="background:#FEE2E2;color:#DC2626;"><i class="bi bi-person-lines-fill"></i></div>
+                <div class="rel-export-label">Desempenho por Especialista</div>
+                <div class="rel-export-sub">Ligações, agendamentos, vendas por consultor</div>
+                <div class="rel-export-btn"><i class="bi bi-download"></i> Baixar .xlsx</div>
+              </div>
+            </div>
+            <div class="col-md-3 col-6">
+              <div class="rel-export-card" onclick="RelatoriosModule.exportarCompleto()">
+                <div class="rel-export-icon" style="background:#F3F4F6;color:#1E2358;"><i class="bi bi-file-earmark-spreadsheet-fill"></i></div>
+                <div class="rel-export-label">Relatório Completo</div>
+                <div class="rel-export-sub">Todas as abas em um único arquivo</div>
+                <div class="rel-export-btn" style="background:#1E2358;color:#fff;"><i class="bi bi-download"></i> Baixar .xlsx</div>
+              </div>
+=======
         <div class="top-bar-actions">
           <button class="btn-amparar btn-secondary-amp btn-sm-amp" onclick="showToast('Exportação Excel em breve!','info')"><i class="bi bi-file-earmark-excel"></i> Exportar Excel</button>
         </div>
@@ -359,10 +472,14 @@
             </div>
             <div class="mt-3 p-2 text-center" style="background:#D1FAE5;border-radius:8px;">
               <span style="color:#059669;font-weight:700;font-size:13px;">↑ +18% em ligações vs mês anterior</span>
+>>>>>>> ad1974a1ad745815ae68a694114388ade54ac19e
             </div>
           </div>
         </div>
       </div>
+
+      <!-- RELATÓRIO DINÂMICO COMPLETO -->
+      <div id="rel-dashboard"></div>
     </div>
 
     <!-- ======================== CURRÍCULOS ======================== -->
@@ -387,6 +504,14 @@
     <div class="amp-page" id="page-configuracoes">
       <div class="top-bar">
         <div><div class="page-title">Configurações</div><div class="page-sub">Usuários, Filiais, Tags e Logs do sistema</div></div>
+<<<<<<< HEAD
+      </div>
+      <!-- Minha Performance (AJUSTE 3) -->
+      <div class="config-section" id="painel-minha-performance">
+        <div class="config-section-title"><i class="bi bi-bar-chart-line-fill me-1"></i> Minha Performance — <span id="perf-usuario-nome">Carlos Mendes</span></div>
+        <div id="minha-performance-content"></div>
+=======
+>>>>>>> ad1974a1ad745815ae68a694114388ade54ac19e
       </div>
       <!-- Usuários -->
       <div class="config-section">
@@ -609,6 +734,16 @@
         <div class="form-section">
           <div class="form-section-title">Observações (acumuladas em todas as etapas)</div>
           <textarea id="mld-obs" class="form-control" placeholder="Observações..." rows="3"></textarea>
+<<<<<<< HEAD
+        </div>
+        <!-- AJUSTE 7: Gerenciamento de tags -->
+        <div class="form-section">
+          <div class="form-section-title">🏷️ Tags do Lead</div>
+          <div id="mld-tags-atuais" class="d-flex flex-wrap gap-2 mb-2"></div>
+          <div class="small text-muted mb-1">Adicionar tag:</div>
+          <div class="d-flex flex-wrap gap-2" id="mld-tags-disponiveis"></div>
+=======
+>>>>>>> ad1974a1ad745815ae68a694114388ade54ac19e
         </div>
       </div>
 
@@ -618,10 +753,21 @@
           <div class="flex-grow-1">
             <div class="ld-nome text-success" id="mld-lig-nome">—</div>
             <div class="ld-info" id="mld-lig-id">—</div>
+<<<<<<< HEAD
+          </div>
+          <div>
+            <div class="ld-tel" style="color:#059669;">
+              <i class="bi bi-telephone-fill"></i>
+              <span id="mld-lig-tel">—</span>
+              <button class="btn-copy-tel" id="mld-copy-lig-tel"><i class="bi bi-clipboard"></i> Copiar</button>
+            </div>
+          </div>
+=======
           </div>
           <div>
             <div class="ld-tel" style="color:#059669;"><i class="bi bi-telephone-fill"></i> <span id="mld-lig-tel">—</span></div>
           </div>
+>>>>>>> ad1974a1ad745815ae68a694114388ade54ac19e
           <span class="tent-badge-lg" id="mld-tent-badge">0 tentativas</span>
         </div>
         <div class="form-section">
@@ -1029,6 +1175,52 @@
   </div>
 </div>
 
+<<<<<<< HEAD
+<!-- ================================================================
+     MODAL: IMPORTAR LEADS (AJUSTE 4)
+     ================================================================ -->
+<div class="amp-modal" id="modal-importar-leads">
+  <div class="amp-modal-content modal-sm">
+    <div class="amp-modal-header">
+      <div>
+        <div class="amp-modal-title">📥 Importar Carteira</div>
+        <div class="amp-modal-subtitle">Envie um arquivo CSV com os leads</div>
+      </div>
+      <button class="modal-close-btn" onclick="closeModal('modal-importar-leads')"><i class="bi bi-x-lg"></i></button>
+    </div>
+    <div class="amp-modal-body">
+      <div class="alert" style="background:#FEF3C7;border:1px solid #F59E0B;border-radius:8px;padding:12px;font-size:13px;color:#92400E;">
+        <strong>Formato esperado (CSV):</strong><br>
+        <code>Nome,Telefone,Fonte</code><br>
+        <span class="text-muted">Ex: João Silva,(48) 99999-9999,Carteira Amparar</span>
+      </div>
+      <div class="mb-3">
+        <label class="form-label fw-semibold">Arquivo CSV ou Excel</label>
+        <input type="file" id="import-file" class="form-control" accept=".csv,.xlsx,.xls">
+      </div>
+      <div id="import-preview" class="small text-muted"></div>
+    </div>
+    <div class="amp-modal-footer">
+      <button class="btn-amparar btn-secondary-amp" onclick="closeModal('modal-importar-leads')">Cancelar</button>
+      <button class="btn-amparar btn-primary-amp" onclick="FunilModule.processarImportacao()"><i class="bi bi-upload"></i> Processar Importação</button>
+=======
+<!-- CONFIRM DIALOG -->
+<div class="amp-modal" id="modal-confirm">
+  <div class="amp-modal-content modal-sm">
+    <div class="amp-modal-body text-center py-3">
+      <div class="cd-icon" id="cd-icon">❓</div>
+      <div class="cd-title" id="cd-title">Confirmar</div>
+      <div class="cd-msg text-muted" id="cd-msg">Tem certeza?</div>
+      <div class="cd-actions">
+        <button class="btn-amparar btn-secondary-amp w-100 justify-content-center" onclick="confirmNo()">Cancelar</button>
+        <button class="btn-amparar btn-primary-amp w-100 justify-content-center" onclick="confirmYes()">Confirmar</button>
+      </div>
+>>>>>>> ad1974a1ad745815ae68a694114388ade54ac19e
+    </div>
+  </div>
+</div>
+
+<<<<<<< HEAD
 <!-- CONFIRM DIALOG -->
 <div class="amp-modal" id="modal-confirm">
   <div class="amp-modal-content modal-sm">
@@ -1050,6 +1242,15 @@
 <!-- SCRIPTS -->
 <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/exceljs@4.4.0/dist/exceljs.min.js"></script>
+=======
+<!-- TOAST -->
+<div id="toast-container"></div>
+
+<!-- SCRIPTS -->
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+>>>>>>> ad1974a1ad745815ae68a694114388ade54ac19e
 <script src="js/constants.js"></script>
 <script src="js/utils.js"></script>
 <script src="js/store.js"></script>

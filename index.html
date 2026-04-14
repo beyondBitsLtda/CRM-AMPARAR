@@ -225,8 +225,9 @@
           <div class="amp-card-title"><i class="bi bi-calendar-week me-1"></i> Agenda da Semana — Março 2026</div>
           <button class="btn-amparar btn-secondary-amp btn-sm-amp" onclick="navigate('agenda')">Agenda completa →</button>
         </div>
-        <div style="overflow-x:auto;">
-          <div id="agenda-week-dash"></div>
+        <!-- Mini gcal — mesmo visual da página de Agenda, altura reduzida -->
+        <div class="gcal-dash-wrapper">
+          <div id="agenda-week-dash" class="gcal-container gcal-dash"></div>
         </div>
       </div>
     </div>
@@ -1123,6 +1124,51 @@
 
 <!-- TOAST -->
 <div id="toast-container"></div>
+
+<!-- SYNC: Mini agenda do dashboard usa o mesmo render do AgendaModule -->
+<script>
+(function() {
+  // Aguarda o AgendaModule estar disponível e as páginas carregadas
+  function syncAgendaDash() {
+    var src = document.getElementById('gcal-container');
+    var dst = document.getElementById('agenda-week-dash');
+    if (!src || !dst) return;
+    // Clona o conteúdo renderizado do gcal principal para o mini do dashboard
+    dst.innerHTML = src.innerHTML;
+    // Remove o sticky header e ajusta o grid-template-columns para herdar
+    dst.style.gridTemplateColumns = src.style.gridTemplateColumns || '';
+    // Desabilita interações do popover no clone (eventos abrem na agenda principal)
+    dst.querySelectorAll('.gcal-event').forEach(function(ev) {
+      ev.onclick = function(e) {
+        e.stopPropagation();
+        navigate('agenda');
+      };
+    });
+  }
+
+  // Observa mutações no gcal-container para manter o dash sincronizado
+  document.addEventListener('DOMContentLoaded', function() {
+    var src = document.getElementById('gcal-container');
+    if (!src) return;
+    var observer = new MutationObserver(function() {
+      // Só sincroniza quando o dashboard está visível
+      var dash = document.getElementById('agenda-week-dash');
+      if (dash) syncAgendaDash();
+    });
+    observer.observe(src, { childList: true, subtree: true, characterData: true });
+    // Sync inicial após um curto delay para o JS carregar
+    setTimeout(syncAgendaDash, 600);
+    // Sync toda vez que navegar para o dashboard
+    var origNavigate = window.navigate;
+    window.navigate = function(page) {
+      if (origNavigate) origNavigate(page);
+      if (page === 'dashboard') {
+        setTimeout(syncAgendaDash, 100);
+      }
+    };
+  });
+})();
+</script>
 
 <!-- SCRIPTS -->
 <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>

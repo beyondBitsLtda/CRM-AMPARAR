@@ -1063,8 +1063,39 @@ textarea.form-control { resize: vertical; min-height: 80px; }
 }
 .gcal-pop-row i { color: var(--text-muted); font-size: 14px; margin-top: 1px; flex-shrink: 0; }
 
-/* ---------- MINI BADGE AGENDA DASHBOARD (mantido) ---------- */
+/* ---------- MINI AGENDA DASHBOARD — mesmo visual do gcal, altura reduzida ---------- */
 .ag-slot { cursor: pointer; }
+
+.gcal-dash-wrapper {
+  overflow-x: auto;
+  overflow-y: hidden;
+}
+/* Contêiner gcal dentro do dashboard (herda os estilos gcal-container) */
+.gcal-container.gcal-dash {
+  min-width: 600px;
+}
+/* Limita a altura dos eventos no dash para não ocupar muito espaço */
+.gcal-container.gcal-dash .gcal-hour-line {
+  height: 32px; /* menor que os 48px da agenda completa */
+}
+.gcal-container.gcal-dash .gcal-time-label {
+  height: 32px;
+}
+.gcal-container.gcal-dash .gcal-now-line {
+  /* ajuste proporcional: 32/48 = 0.667 do offset */
+}
+/* Remove o sticky do header dentro do dash (já está dentro de um card) */
+.gcal-container.gcal-dash .gcal-header-row {
+  position: relative;
+  top: auto;
+}
+/* Limita visualmente a ~8h de slots visíveis com scroll se necessário */
+.gcal-dash-wrapper {
+  max-height: 380px;
+  overflow-y: auto;
+  overflow-x: auto;
+  border-radius: 0 0 var(--radius) var(--radius);
+}
 
 /* ================================================================
    CARDS DE EXPORTAÇÃO EXCEL

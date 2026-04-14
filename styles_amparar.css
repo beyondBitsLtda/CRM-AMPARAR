@@ -871,7 +871,6 @@ textarea.form-control { resize: vertical; min-height: 80px; }
   .k-col { min-width: 200px; }
   .visita-opts { grid-template-columns: repeat(2,1fr); }
 }
-<<<<<<< HEAD
 
 /* ================================================================
    AGENDA — ESTILO GOOGLE CALENDAR
@@ -1246,5 +1245,3 @@ textarea.form-control { resize: vertical; min-height: 80px; }
 .raniv-nome { font-size: 12px; font-weight: 700; }
 .raniv-data { font-size: 11px; color: var(--text-muted); }
 .raniv-dias { font-size: 11px; font-weight: 700; padding: 2px 8px; border-radius: 99px; }
-=======
->>>>>>> ad1974a1ad745815ae68a694114388ade54ac19e

@@ -1,9 +1,5 @@
 /* ============================================================
-<<<<<<< HEAD
    AMPARAR CRM — js/app.js   v2.1
-=======
-   AMPARAR CRM — js/app.js   v2.0
->>>>>>> ad1974a1ad745815ae68a694114388ade54ac19e
    Ponto de entrada. Inicializa tudo.
    Beyond Bits Tecnologia © 2026
    ============================================================ */
@@ -27,7 +23,6 @@ $(document).ready(function() {
   RelatoriosModule.render();
   CurriculoModule.render();
   UsuarioModule.render();
-<<<<<<< HEAD
   UsuarioModule.renderMinhaPerformance(); /* AJUSTE 3 */
   AuditModule.render();
 
@@ -46,10 +41,6 @@ $(document).ready(function() {
     $('#secao-relatorios-gerente').show();
   }
 
-=======
-  AuditModule.render();
-
->>>>>>> ad1974a1ad745815ae68a694114388ade54ac19e
   /* Sidebar toggle */
   $('#sidebar-toggle').on('click', () => SidebarController.alternar());
   $('#sidebar-backdrop').on('click', () => SidebarController.fecharMobile());
@@ -92,7 +83,6 @@ $(document).ready(function() {
     DateTimeHelper.setNow(targetId);
   });
 
-<<<<<<< HEAD
   /* AJUSTE 4: Preview do arquivo de importação */
   $(document).on('change', '#import-file', function() {
     const file = this.files?.[0];
@@ -100,8 +90,6 @@ $(document).ready(function() {
     $('#import-preview').html(`<i class="bi bi-file-earmark-check text-success"></i> Arquivo selecionado: <strong>${Utils.escHtml(file.name)}</strong> (${(file.size/1024).toFixed(1)} KB)`);
   });
 
-=======
->>>>>>> ad1974a1ad745815ae68a694114388ade54ac19e
   Router.inicializar();
 });
 
@@ -121,14 +109,11 @@ window.confirmarAgendamento = () => FunilModule.confirmarAgendamento();
 window.confirmarVisita   = () => FunilModule.confirmarVisita();
 window.confirmarVenda    = () => FunilModule.confirmarVenda();
 window.criarLeadRec      = id => FunilModule.criarLeadRec(id);
-<<<<<<< HEAD
 
 /* AJUSTE 7: Tags */
 window.adicionarTag      = (id, t) => FunilModule.adicionarTag(id, t);
 window.removerTag        = (id, t) => FunilModule.removerTag(id, t);
 
-=======
->>>>>>> ad1974a1ad745815ae68a694114388ade54ac19e
 window.avancarLeadAtual  = () => {
   const lead = store.currentLead;
   if (!lead) return;

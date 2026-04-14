@@ -95,19 +95,11 @@ const INITIAL_CURRICULOS = [
 ];
 
 const INITIAL_USUARIOS = [
-<<<<<<< HEAD
   { nome:'Carlos Mendes',   sigla:'CM', filial:'Matriz',            perfil:'especialista', status:'ativo', meta_mensalidade: 2448.60, meta_vendas: 14, email:'carlos@amparar.com.br',  comissoes: { mes_atual: 1224.30, meta_atingida: false, historico: [{mes:'Jan',valor:2448.60},{mes:'Fev',valor:1836.45},{mes:'Mar',valor:1224.30}] } },
   { nome:'Ana Beatriz',     sigla:'AB', filial:'Centro',            perfil:'especialista', status:'ativo', meta_mensalidade: 2448.60, meta_vendas: 14, email:'ana@amparar.com.br',     comissoes: { mes_atual: 2448.60, meta_atingida: true,  historico: [{mes:'Jan',valor:1836.45},{mes:'Fev',valor:2448.60},{mes:'Mar',valor:2448.60}] } },
   { nome:'Rodrigo Lopes',   sigla:'RL', filial:'São José da Varginha', perfil:'especialista', status:'ativo', meta_mensalidade: 2000, meta_vendas: 12, email:'rodrigo@amparar.com.br', comissoes: { mes_atual: 1600,    meta_atingida: false, historico: [{mes:'Jan',valor:2000},{mes:'Fev',valor:1400},{mes:'Mar',valor:1600}] } },
   { nome:'Fernanda Costa',  sigla:'FC', filial:'Matriz',            perfil:'supervisor',   status:'ativo', meta_mensalidade: 0,       meta_vendas: 0,  email:'fernanda@amparar.com.br', comissoes: { mes_atual: 0, meta_atingida: false, historico: [] } },
   { nome:'Ricardo Almeida', sigla:'RA', filial:'Todas',             perfil:'gerente',      status:'ativo', meta_mensalidade: 0,       meta_vendas: 0,  email:'ricardo@amparar.com.br',  comissoes: { mes_atual: 0, meta_atingida: false, historico: [] } },
-=======
-  { nome:'Carlos Mendes',   sigla:'CM', filial:'Matriz',            perfil:'especialista', status:'ativo', meta_mensalidade: 2448.60, meta_vendas: 14, email:'carlos@amparar.com.br' },
-  { nome:'Ana Beatriz',     sigla:'AB', filial:'Centro',            perfil:'especialista', status:'ativo', meta_mensalidade: 2448.60, meta_vendas: 14, email:'ana@amparar.com.br'    },
-  { nome:'Rodrigo Lopes',   sigla:'RL', filial:'São José da Varginha', perfil:'especialista', status:'ativo', meta_mensalidade: 2000, meta_vendas: 12, email:'rodrigo@amparar.com.br' },
-  { nome:'Fernanda Costa',  sigla:'FC', filial:'Matriz',            perfil:'supervisor',   status:'ativo', meta_mensalidade: 0,       meta_vendas: 0,  email:'fernanda@amparar.com.br'},
-  { nome:'Ricardo Almeida', sigla:'RA', filial:'Todas',             perfil:'gerente',      status:'ativo', meta_mensalidade: 0,       meta_vendas: 0,  email:'ricardo@amparar.com.br' },
->>>>>>> ad1974a1ad745815ae68a694114388ade54ac19e
 ];
 
 const INITIAL_ATIVIDADES = [

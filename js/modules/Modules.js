@@ -64,7 +64,6 @@ class HistoricoModule {
 
 /* ============================================================  AgendaModule */
 class AgendaModule {
-<<<<<<< HEAD
 
   /* ---- CONFIG ---- */
   static _offset    = 0;   // semanas relativas a hoje
@@ -453,63 +452,10 @@ class AgendaModule {
     Toast.show(`📅 ${sigla}${esp ? ' — '+esp.nome : ''} | ${dia} às ${hora}`, 'info');
   }
 
-=======
-  static renderDashboard() {
-    const $c = $('#agenda-week-dash');
-    if (!$c.length) return;
-    const dias  = ['Seg','Ter','Qua','Qui','Sex','Sáb','Dom'];
-    const horas = ['08:00','09:00','10:00','11:00','12:00','13:00','14:00','15:00','16:00','17:00','18:00','19:00'];
-
-    let html = `<div class="agenda-grid">
-      <div class="ag-header-cell"></div>
-      ${dias.map((d,i) => `<div class="ag-header-cell${i===2?' ag-today':''}">${d}</div>`).join('')}`;
-
-    horas.forEach(h => {
-      html += `<div class="ag-time">${h}</div>`;
-      dias.forEach((d,di) => {
-        const slots = (AGENDA_DATA[d]?.[h] || []);
-        html += `<div class="ag-cell${di===2?' ag-today-col':''}">
-          ${slots.map(s => `<span class="ag-slot" title="${s}">${s}</span>`).join('')}
-        </div>`;
-      });
-    });
-    html += '</div>';
-    $c.html(html);
-  }
-
-  static renderFull() {
-    const $tbody = $('#agenda-tbody');
-    if (!$tbody.length) return;
-    const base = [
-      { data:'26/03 14:00', cliente:'Maria Costa',    tel:'(48) 99234-5566', tipo:'Nacional Particular', local:'🏢 Interno', esp:'Carlos Mendes', status:'aguardando' },
-      { data:'27/03 10:00', cliente:'Sandra Oliveira', tel:'(48) 98877-4422', tipo:'Motocicleta',         local:'📍 Externo', esp:'Carlos Mendes', status:'confirmado' },
-      { data:'27/03 15:30', cliente:'Felipe Torres',  tel:'(48) 99012-8877', tipo:'Caminhão',            local:'💻 Online',  esp:'Ana Beatriz',   status:'aguardando' },
-      { data:'28/03 09:00', cliente:'Roberta Maia',   tel:'(48) 98654-3300', tipo:'Importado/Diesel',    local:'🏢 Interno', esp:'Carlos Mendes', status:'realizado'  },
-    ];
-    const fromStore = store.agendamentos.map(a => ({
-      data: Utils.formatDate(a.data), cliente: a.lead?.nome||'—', tel: a.lead?.tel||'—',
-      tipo: a.categoria||'—', local: a.local||'—', esp: a.lead?.captador||'Carlos Mendes', status:'aguardando',
-    }));
-    const all = [...base,...fromStore];
-    const sBadge = { aguardando:{bg:'#FEF3C7',c:'#D97706',l:'⏳ Aguardando'}, confirmado:{bg:'#DBEAFE',c:'#2563EB',l:'📋 Confirmado'}, realizado:{bg:'#D1FAE5',c:'#059669',l:'✅ Realizado'} };
-    $tbody.html(all.map(a => {
-      const s = sBadge[a.status]||sBadge.aguardando;
-      return `<tr>
-        <td><span class="hora-badge">${a.data}</span></td>
-        <td><strong>${Utils.escHtml(a.cliente)}</strong><br><small class="text-muted">${Utils.escHtml(a.tel)}</small></td>
-        <td>${Utils.escHtml(a.tipo)}</td>
-        <td>${a.local}</td>
-        <td>${Utils.escHtml(a.esp)}</td>
-        <td><span class="badge" style="background:${s.bg};color:${s.c};">${s.l}</span></td>
-      </tr>`;
-    }).join(''));
-  }
->>>>>>> ad1974a1ad745815ae68a694114388ade54ac19e
 }
 
 /* ============================================================  RelatoriosModule */
 class RelatoriosModule {
-<<<<<<< HEAD
 
   static render() {
     RelatoriosModule._renderDashboard();
@@ -1685,45 +1631,6 @@ class RelatoriosModule {
     await RelatoriosModule._baixarExcelJS(wb, 'Amparar_Relatorio_Completo.xlsx');
   }
 
-=======
-  static render() {
-    RelatoriosModule.renderFunil();
-    RelatoriosModule.renderAniversariantes();
-  }
-  static renderFunil() {
-    const $c = $('#rel-funil');
-    if (!$c.length) return;
-    const labels = ['Leads','Ligações','Agendamentos','Visitas','Vendas','Carteira'];
-    const cores  = ['#3B82F6','#10B981','#8B5CF6','#F59E0B','#1B6B3A','#4A5568'];
-    const totais = STAGE_ORDER.map(e => store.leadsPorEtapa(e).length);
-    const max    = Math.max(...totais, 1);
-    const base   = totais[0] || 1;
-    $c.html(STAGE_ORDER.map((e,i) => `
-      <div class="rel-funil-row">
-        <div class="rel-funil-lbl">${labels[i]}</div>
-        <div class="rel-funil-track"><div class="rel-funil-fill" style="width:${Math.round(totais[i]/max*100)}%;background:${cores[i]};"></div></div>
-        <div class="rel-funil-n fw-bold">${totais[i]}</div>
-        <div class="rel-funil-pct small text-muted">${i===0?'100%':Math.round(totais[i]/base*100)+'%'}</div>
-      </div>`).join(''));
-  }
-  static renderAniversariantes() {
-    const $c = $('#rel-aniv');
-    if (!$c.length) return;
-    const anivs = store.leads.filter(l => l.etapa==='carteira' && l.aniversario);
-    if (!anivs.length) { $c.html('<p class="text-muted small">Nenhum aniversariante no período.</p>'); return; }
-    $c.html(anivs.map(l => {
-      const d = l.aniversario ? new Date(l.aniversario).toLocaleDateString('pt-BR') : '—';
-      return `<div class="aniv-item d-flex align-items-center gap-3 mb-2 p-2 rounded">
-        <div class="avatar-circle">${l.nome.split(' ').map(x=>x[0]).join('').slice(0,2)}</div>
-        <div class="flex-grow-1">
-          <div class="fw-semibold">${Utils.escHtml(l.nome)}</div>
-          <div class="small text-muted">🎂 ${d}</div>
-        </div>
-        <button class="btn btn-sm btn-outline-success" onclick="Utils.copyTel('${Utils.escHtml(l.tel)}');Toast.show('Número copiado!','success')">📞 Ligar</button>
-      </div>`;
-    }).join(''));
-  }
->>>>>>> ad1974a1ad745815ae68a694114388ade54ac19e
 }
 
 /* ============================================================  CurriculoModule */
@@ -1825,7 +1732,6 @@ class CurriculoModule {
 
 /* ============================================================  UsuarioModule */
 class UsuarioModule {
-<<<<<<< HEAD
   /* AJUSTE 3: Painel de performance/comissões do usuário logado */
   static renderMinhaPerformance() {
     const $c = $('#minha-performance-content');
@@ -1878,8 +1784,6 @@ class UsuarioModule {
         ${historico ? `<div class="col-12"><div class="kpi-card flex-column align-items-start gap-2"><div class="kpi-lbl fw-semibold">📊 Histórico Mensal</div>${historico}</div></div>` : ''}
       </div>`);
   }
-=======
->>>>>>> ad1974a1ad745815ae68a694114388ade54ac19e
   static render() {
     const $tb = $('#usuarios-tbody');
     if (!$tb.length) return;

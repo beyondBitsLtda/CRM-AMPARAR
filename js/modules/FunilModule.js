@@ -194,7 +194,6 @@ class FunilModule {
     $('#mld-mensest').val(l.mensalidadeEst||'');
     $('#mld-obs').val(l.obs||'');
     $('#mld-copy-tel').off('click').on('click', () => { Utils.copyTel(l.tel); Toast.show('Número copiado!','success'); });
-<<<<<<< HEAD
 
     // AJUSTE 7: renderizar tags atuais e disponíveis
     const $atuais = $('#mld-tags-atuais');
@@ -212,22 +211,17 @@ class FunilModule {
         onclick="FunilModule.adicionarTag('${Utils.escHtml(l.id)}','${t}')" title="Clique para adicionar">
         <i class='bi bi-plus-lg' style='font-size:10px;'></i> ${c.label}</span>`;
     }).join(''));
-=======
->>>>>>> ad1974a1ad745815ae68a694114388ade54ac19e
   }
 
   static _preencherAbaLigacao(l) {
     $('#mld-lig-nome').text(l.nome);
     $('#mld-lig-tel').text(l.tel);
     $('#mld-lig-id').text(l.id);
-<<<<<<< HEAD
     // AJUSTE 1: bind do botão copiar na aba ligação
     $('#mld-copy-lig-tel').off('click').on('click', () => {
       Utils.copyTel(l.tel);
       Toast.show('Número copiado!', 'success');
     });
-=======
->>>>>>> ad1974a1ad745815ae68a694114388ade54ac19e
     FunilModule._atualizarContadorTentativas(l.tentativas);
     $('#tab-ligacao .res-opt').removeClass('selected');
     $('#mld-lig-obs').val(l.obs||'');
@@ -475,7 +469,6 @@ class FunilModule {
     $c.find('input, textarea').val(''); /* RN-06: limpa formulário */
   }
 
-<<<<<<< HEAD
   /* ---- TAGS (AJUSTE 7) ---- */
   static adicionarTag(leadId, tag) {
     const lead = store.buscarLead(leadId);
@@ -548,15 +541,12 @@ class FunilModule {
     });
   }
 
-=======
->>>>>>> ad1974a1ad745815ae68a694114388ade54ac19e
   /* ---- RESULTADO LIGAÇÃO ---- */
   static selecionarRes(el) {
     const $opt = $(el);
     if ($opt.hasClass('disabled-opt')) {
       Toast.show('Remarketing disponível após 30 tentativas','warning'); return;
     }
-<<<<<<< HEAD
     // AJUSTE 2: desseleciona TODOS os res-opt da aba atual (não só do mesmo grupo)
     const $pane = $opt.closest('.lead-tab-pane');
     $pane.find('.res-opt').removeClass('selected');
@@ -566,10 +556,6 @@ class FunilModule {
     const texto = $opt.text().trim();
     const isAvanco = texto.includes('Agendamento') || texto.includes('Remarketing');
     $('#mld-btn-lig').text(isAvanco ? '→ Registrar e Avançar' : '✓ Registrar Resultado');
-=======
-    $opt.closest('.resultado-options').find('.res-opt').removeClass('selected');
-    $opt.addClass('selected');
->>>>>>> ad1974a1ad745815ae68a694114388ade54ac19e
   }
 
   /* ---- RESULTADO VISITA ---- */
@@ -578,7 +564,6 @@ class FunilModule {
     $(el).addClass('selected');
     $('#tab-visita .resultado-detail').removeClass('active');
     $('#vis-detail-'+tipo).addClass('active');
-<<<<<<< HEAD
 
     // AJUSTE 8: atualizar texto do botão principal conforme resultado da visita
     const $btnAvan = $('#mld-btn-avancar');
@@ -587,7 +572,5 @@ class FunilModule {
     } else {
       $btnAvan.text('✓ Registrar Resultado');
     }
-=======
->>>>>>> ad1974a1ad745815ae68a694114388ade54ac19e
   }
 }
